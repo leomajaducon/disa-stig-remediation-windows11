@@ -26,7 +26,6 @@ This project allows me to practice a remediation workflow used in vulnerability 
 - **Tenable** — Enterprise vulnerability management platform used to audit system configurations and review findings.
 - **Azure Virtual Machines** — Hosts my Windows 11 scan target and Nessus scan engine.
 - **PowerShell** — Used to develop and execute Windows remediation scripts.
-- **Bash** — Used for applicable Unix/Linux remediation tasks where relevant to the lab.
 - **ChatGPT** — Used to assist in generating and refining remediation scripts based on selected STIG requirements.
 
 AI-generated scripts are treated as proposed solutions rather than automatically trusted fixes. I review the commands, test them in my lab, and validate their effectiveness through follow-up scans.
