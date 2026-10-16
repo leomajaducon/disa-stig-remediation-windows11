@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Enables blocking of consumer Microsoft account user authentication for STIG compliance.
+    Blocks consumer Microsoft account user authentication.
 
 .NOTES
     Author          : Leonard Nathaniel S. Majaducon
@@ -29,21 +29,15 @@
 
 $ErrorActionPreference = "Stop"
 
-# Check administrator privileges
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    throw "ERROR: Run PowerShell as Administrator."
+$currentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = New-Object Security.Principal.WindowsPrincipal($currentIdentity)
+if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    throw "Run PowerShell as Administrator."
 }
 
-# Enable the STIG setting
 $path = "HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftAccount"
 New-Item -Path $path -Force | Out-Null
 New-ItemProperty -Path $path -Name "DisableUserAuth" -PropertyType DWord -Value 1 -Force | Out-Null
 
-# Verify the setting
-$value = (Get-ItemProperty -Path $path -Name "DisableUserAuth").DisableUserAuth
-
-if ($value -eq 1) {
-    Write-Host "PASS: Consumer Microsoft account user authentication is blocked." -ForegroundColor Green
-} else {
-    throw "FAIL: Setting was not applied correctly."
-}
+Write-Host "Configured DisableUserAuth=1 (Block consumer Microsoft account user authentication)." -ForegroundColor Green
+Write-Host "Note: Domain Group Policy/MDM may override local configuration. Confirm with gpresult and the Tenable audit result."
