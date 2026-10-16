@@ -13,17 +13,16 @@
     Plugin IDs      : N/A
     STIG-ID         : WN11-AC-000040
     Documentation   : DISA Windows 11 STIG
-    Compliance Scan : 2026-10-16 13:12:48 UTC (Tenable report timestamp)
-
 
 .TESTED ON
-    Date(s) Tested  : Not independently tested; scan evidence dated 2026-10-16
+    Date(s) Tested  :
     Tested By       :
     Systems Tested  : Windows 11
     PowerShell Ver. : Windows PowerShell 5.1
 
 .USAGE
-    Run PowerShell as Administrator.
+    Run PowerShell ISE as Administrator.
+
     Example:
     PS C:\> .\WN11-AC-000040.ps1
 #>
@@ -95,4 +94,3 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Password complexity policy set to Enabled (PasswordComplexity=1)." -ForegroundColor Green
 Write-Host "Policy backup: $backupFile"
 Write-Host "Updated policy: $configFile"
-
